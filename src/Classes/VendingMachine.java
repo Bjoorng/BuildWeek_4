@@ -7,30 +7,30 @@ import Abstract.TicketSeller;
 
 @Entity
 @DiscriminatorValue("vending_machine")
-public class VendingMachine extends TicketSeller{
-	
+public class VendingMachine extends TicketSeller {
+
 	private boolean isWorking;
 
-	public VendingMachine(String name) {
-		super(name);
-	}
+	public VendingMachine() {
+		super();
+    }
 
 	public VendingMachine(String name, boolean isWorking) {
-		super(name);
-		this.isWorking = isWorking;
-	}
+        super(name);
+        this.isWorking = isWorking;
+    }
 
-	public boolean isWorking() {
-		return isWorking;
-	}
+    public boolean getIsWorking() {
+        return isWorking;
+    }
 
-	public void setWorking(boolean isWorking) {
-		this.isWorking = isWorking;
-	}
+    public void setIsWorking(boolean isWorking) {
+        this.isWorking = isWorking;
+    }
 
-	@Override
-	public String toString() {
-		return "VendingMachine [isWorking=" + isWorking + "]";
-	}
+    @Override
+    public String toString() {
+        return "VendingMachine [isWorking=" + isWorking + ", id=" + getId() + ", name=" + getName() + "]";
+    }
 
 }

@@ -21,5 +21,11 @@ public class PersonDAO extends JpaUtils{
 		System.out.println(p);
 	}
 	
-	
+	public void deletePerson(long id) throws SQLException {
+		em.getTransaction().begin();
+		Person p = em.find(Person.class, id);
+		em.remove(p);
+		em.getTransaction().commit();
+		System.out.println("Card:" + p.getId() + "Of: " + p.getFirstName() + " " + p.getLastName() + " deleted");
+	}
 }

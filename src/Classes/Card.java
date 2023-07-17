@@ -14,7 +14,7 @@ public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToOne
+	@OneToOne(mappedBy = "cardNum")
 	private Person person;
 	private LocalDate emissionDate;
 	private LocalDate expirationDate;
@@ -23,9 +23,8 @@ public class Card {
 		super();
 	}
 
-	public Card(Person person, LocalDate emissionDate, LocalDate expirationDate) {
+	public Card(LocalDate emissionDate, LocalDate expirationDate) {
 		super();
-		this.person = person;
 		this.emissionDate = emissionDate;
 		this.expirationDate = expirationDate;
 	}

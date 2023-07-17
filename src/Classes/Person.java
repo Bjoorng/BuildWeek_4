@@ -24,12 +24,12 @@ public class Person {
 		super();
 	}
 
-	public Person(String firstName, String lastName, LocalDate birthdate, Card cardNum) {
+	public Person(String firstName, String lastName, LocalDate birthdate) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthdate = birthdate;
-		this.cardNum = cardNum;
+		//this.cardNum = cardNum;
 	}
 
 	public Long getId() {

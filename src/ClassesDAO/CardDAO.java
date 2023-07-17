@@ -21,4 +21,11 @@ public class CardDAO extends JpaUtils{
 			System.out.println(c);
 		}
 		
+		public void deleteCard(long id) throws SQLException {
+			em.getTransaction().begin();
+			Card c = em.find(Card.class, id);
+			em.remove(c);
+			em.getTransaction().commit();
+			System.out.println("Card:" + c.getId() + "Of: " + c.getPerson() + " deleted");
+		}
 }
