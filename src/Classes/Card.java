@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,15 +19,18 @@ public class Card {
 	private Person person;
 	private LocalDate emissionDate;
 	private LocalDate expirationDate;
+	private boolean isValid;
 	
 	public Card() {
 		super();
 	}
 
-	public Card(LocalDate emissionDate, LocalDate expirationDate) {
+	public Card(LocalDate emissionDate, LocalDate expirationDate, Person person) {
 		super();
 		this.emissionDate = emissionDate;
 		this.expirationDate = expirationDate;
+		this.person = person;
+		this.isValid = true;
 	}
 
 	public Long getId() {
@@ -61,10 +65,25 @@ public class Card {
 		this.person = person;
 	}
 
+	public boolean isValid() {
+		return isValid;
+	}
+
+	public void setValid(boolean isValid) {
+		this.isValid = isValid;
+	}
+
 	@Override
 	public String toString() {
-		return "Card [id=" + id + ", person=" + person + ", emissionDate=" + emissionDate + ", expirationDate="
-				+ expirationDate + "]";
+		return "Card [id=" + getId() + ", first name=" + person.getFirstName() + " , last name=" + person.getLastName() + "]";
 	}
 	
+	public boolean checkValidity() {
+		if(LocalDate.now().isAfter(emissionDate) && LocalDate.now().isBefore(expirationDate)) {
+			isValid = true;
+		}else {
+			isValid = false;
+		}
+		return isValid;
+	}
 }

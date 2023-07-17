@@ -16,18 +16,32 @@ public class TicketDAO extends JpaUtils{
 
 	public void saveTicket(Ticket t) throws SQLException {
 		em.getTransaction().begin();
-		em.persist(t);
-		em.getTransaction().commit();
-		em.refresh(t);
-		System.out.println(t);
+
+	    if (em.contains(t)) {
+	        // Entity is already managed, no need for persistence operation
+	        System.out.println("Ticket already present in the database: " + t);
+	    } else {
+	        // Entity is detached, use merge to handle both detached and new entities
+	        Ticket mergedTicket = em.merge(t);
+	        em.getTransaction().commit();
+	        em.refresh(mergedTicket);
+	        System.out.println(mergedTicket);
+	    }
 	}
 	
 	public void savePass(Pass p) throws SQLException {
 		em.getTransaction().begin();
-		em.persist(p);
-		em.getTransaction().commit();
-		em.refresh(p);
-		System.out.println(p);
+
+	    if (em.contains(p)) {
+	        // Entity is already managed, no need for persistence operation
+	        System.out.println("Ticket already present in the database: " + p);
+	    } else {
+	        // Entity is detached, use merge to handle both detached and new entities
+	        Pass mergedPass = em.merge(p);
+	        em.getTransaction().commit();
+	        em.refresh(mergedPass);
+	        System.out.println(mergedPass);
+	    }
 	}
 	
 	public void deleteTicket(long id) throws SQLException {

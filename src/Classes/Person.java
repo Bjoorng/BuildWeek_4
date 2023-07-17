@@ -1,11 +1,15 @@
 package Classes;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,8 +21,10 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private LocalDate birthdate;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Card cardNum;
+	@OneToMany(mappedBy = "person")
+	private List<Ticket> tickets;
 	
 	public Person() {
 		super();
@@ -29,7 +35,6 @@ public class Person {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthdate = birthdate;
-		//this.cardNum = cardNum;
 	}
 
 	public Long getId() {
@@ -74,8 +79,7 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate
-				+ ", cardNum=" + cardNum + "]";
+		return "Person [id=" + getId() + ", name=" + getFirstName() + ", last name=" + getLastName() + "]";
 	}
 	
 }

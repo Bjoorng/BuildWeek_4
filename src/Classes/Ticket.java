@@ -1,50 +1,36 @@
 package Classes;
 
+import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import Abstract.TicketSeller;
+import Abstract.Travel;
 
 @Entity
-public class Ticket {
+public class Ticket extends Travel{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@ManyToOne
-	private TicketSeller seller;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Person person;
 	
 	public Ticket() {
 		super();
 	}
-
-	public Ticket(TicketSeller seller) {
-		super();
-		this.seller = seller;
+	
+	public Ticket(LocalDate soldIn, TicketSeller seller, Person person) {
+		super(soldIn, seller);
+		this.person = person;
 	}
 
-	public Long getId() {
-		return id;
+	public Person getPerson() {
+		return person;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public TicketSeller getSeller() {
-		return seller;
-	}
-
-	public void setSeller(TicketSeller seller) {
-		this.seller = seller;
-	}
-
-	@Override
-	public String toString() {
-		return "Ticket [id=" + id + ", seller=" + seller + "]";
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }

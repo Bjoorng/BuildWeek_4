@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import Classes.Card;
+import Classes.Person;
 import Utils.JpaUtils;
 
 public class CardDAO extends JpaUtils{
@@ -15,10 +16,22 @@ public class CardDAO extends JpaUtils{
 
 		public void saveCard(Card c) throws SQLException {
 			em.getTransaction().begin();
-			em.persist(c);
-			em.getTransaction().commit();
-			em.refresh(c);
-			System.out.println(c);
+		    
+		    Person person = c.getPerson();
+		    if (person != null) {
+		        if (person.getId() == null) {
+		            em.persist(person);
+		        } else {
+		            person = em.merge(person);
+		        }
+		        c.setPerson(person);
+		        person.setCardNum(c);
+		    }
+		    
+		    em.persist(c);
+		    em.getTransaction().commit();
+		    em.refresh(c);
+		    System.out.println(c);
 		}
 		
 		public void deleteCard(long id) throws SQLException {
