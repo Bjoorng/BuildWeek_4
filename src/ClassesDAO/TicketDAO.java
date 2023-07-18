@@ -57,6 +57,6 @@ public class TicketDAO extends JpaUtils{
 		Pass p = em.find(Pass.class, id);
 		em.remove(p);
 		em.getTransaction().commit();
-		System.out.println("Pass:" + p.getId() + "Of: " + p.getPerson() + " deleted");
+		System.out.println("Pass:" + p.getId() + "Of: " + p.getCard().getPerson() + " deleted");
 	}
 }

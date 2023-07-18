@@ -1,6 +1,5 @@
 package Abstract;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -9,11 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
-import Classes.Pass;
-import Classes.Ticket;
 
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -29,10 +24,6 @@ public class TicketSeller {
 	private Long id;
 	@Column(name = "seller_name")
 	private String name;
-	@OneToMany
-	private List<Ticket> tickets;
-	@OneToMany
-	private List<Pass> passes;
 	
 	public TicketSeller() {
 		super();

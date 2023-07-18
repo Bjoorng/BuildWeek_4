@@ -6,15 +6,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import Abstract.TicketSeller;
 import Abstract.Travel;
 import Classes.VendingMachine;
+import Classes.Card;
 import Classes.Pass;
-import Classes.Person;
 import Classes.Shop;
 import Classes.Ticket;
 import Utils.JpaUtils;
@@ -32,12 +30,12 @@ public class SellerDAO extends JpaUtils {
 		System.out.println(s);
 	}
 
-	public void saveVending(VendingMachine v) throws SQLException {
+	public void saveVending(TicketSeller v1) throws SQLException {
 		em.getTransaction().begin();
-		em.persist(v);
+		em.persist(v1);
 		em.getTransaction().commit();
-		em.refresh(v);
-		System.out.println(v);
+		em.refresh(v1);
+		System.out.println(v1);
 	}
 
 	public void deleteShop(long id) throws SQLException {
@@ -56,32 +54,27 @@ public class SellerDAO extends JpaUtils {
 		System.out.println("Card:" + v.getId() + "Of: " + v.getName() + " deleted");
 	}
 
-	public void sellTicket(Ticket ticket, TicketSeller seller, Person p) throws SQLException {
+	public void sellTicket(Ticket ticket, TicketSeller seller) throws SQLException {
 		em.getTransaction().begin();
-		Person managedPerson = em.merge(p);
-		ticket.setPerson(managedPerson);
 		em.persist(ticket);
 		em.merge(seller);
 		em.getTransaction().commit();
 		System.out.println("Ticket sold successfully!");
 	}
 
-	public void sellPass(Pass pass, TicketSeller seller, Person person) {
-		em.getTransaction().begin();
-		if (person.getCardNum().getId() != null && person.getCardNum().checkValidity()) {
-			Person managedPerson = em.merge(person);
-			pass.setPerson(managedPerson);
-			em.persist(pass);
-			em.merge(seller);
-			em.getTransaction().commit();
-			System.out.println("Pass sold successfully!");
-		} else {
-			Person managedPerson = em.merge(person);
-			pass.setPerson(managedPerson);
-			em.getTransaction().commit();
-			System.out.println("Failed To Sell The Pass");
-		}
+	public void sellPass(Pass pass, Card card) throws SQLException {
+	    em.getTransaction().begin();
+	    if (card.checkValidity()) {
+	        em.persist(pass);
+	        em.getTransaction().commit();
+	        System.out.println("Pass sold successfully!");
+	        System.out.println("Person ID: " + card.getPerson().getFirstName());
+	    } else {
+	        System.out.println("Failed To Sell The Pass");
+	    }
 	}
+
+
 
 	public void inMaintenance(long id) throws SQLException {
 		em.getTransaction().begin();
@@ -117,4 +110,5 @@ public class SellerDAO extends JpaUtils {
 		}
 		return tickets;
 	}
+
 }

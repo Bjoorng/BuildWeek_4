@@ -16,7 +16,6 @@ public class CardDAO extends JpaUtils{
 
 		public void saveCard(Card c) throws SQLException {
 			em.getTransaction().begin();
-		    
 		    Person person = c.getPerson();
 		    if (person != null) {
 		        if (person.getId() == null) {
@@ -27,7 +26,6 @@ public class CardDAO extends JpaUtils{
 		        c.setPerson(person);
 		        person.setCardNum(c);
 		    }
-		    
 		    em.persist(c);
 		    em.getTransaction().commit();
 		    em.refresh(c);

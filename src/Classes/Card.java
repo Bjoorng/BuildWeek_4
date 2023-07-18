@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -25,11 +24,10 @@ public class Card {
 		super();
 	}
 
-	public Card(LocalDate emissionDate, LocalDate expirationDate, Person person) {
+	public Card(LocalDate emissionDate, LocalDate expirationDate) {
 		super();
 		this.emissionDate = emissionDate;
 		this.expirationDate = expirationDate;
-		this.person = person;
 		this.isValid = true;
 	}
 

@@ -21,6 +21,13 @@ public class PersonDAO extends JpaUtils{
 	    System.out.println(managedPerson);
 	}
 	
+	public Person getById(long id) throws SQLException {
+		em.getTransaction().begin();
+		Person p = em.find(Person.class, id);
+		em.getTransaction().commit();
+		return p;
+	}
+	
 	public void deletePerson(long id) throws SQLException {
 		em.getTransaction().begin();
 		Person p = em.find(Person.class, id);
