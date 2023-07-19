@@ -2,16 +2,15 @@ package Abstract;
 
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -23,17 +22,17 @@ public class Travel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private LocalDate soldIn;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
+	@JoinColumn(name = "seller_id")
 	private TicketSeller seller;
 	
 	public Travel() {
 		super();
 	}
 
-	public Travel(LocalDate soldIn, TicketSeller seller) {
+	public Travel(LocalDate soldIn) {
 		super();
 		this.soldIn = soldIn;
-		this.seller = seller;
 	}
 
 	public Long getId() {

@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
+import Enums.Maintenance;
 import Enums.TypeOfVehicle;
 
 @Entity
@@ -23,15 +25,17 @@ public class Vehicle {
 	private long capacity;
 	private TypeOfVehicle tov;
 	private int daysOnDuty;
-	private int daysOutOfService;
-	
+	private Maintenance daysOutOfService;
+	@OneToOne
+	private Route route;
+		
 	public Vehicle() {
 		super();
 	}
 	
-	public Vehicle(boolean isWorking, TypeOfVehicle tov, long capacity) {
+	public Vehicle(TypeOfVehicle tov, long capacity) {
 		super();
-		this.isWorking = isWorking;
+		this.isWorking = true;
 		this.tov = tov;
 		this.capacity = capacity;
 	}
@@ -76,12 +80,29 @@ public class Vehicle {
 		this.daysOnDuty = daysOnDuty;
 	}
 	
-	public int getDaysOutOfService() {
+	public Maintenance getDaysOutOfService() {
 		return daysOutOfService;
 	}
-	
-	public void setDaysOutOfService(int daysOutOfService) {
+
+	public void setDaysOutOfService(Maintenance daysOutOfService) {
 		this.daysOutOfService = daysOutOfService;
+	}
+	
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
+
+	public void sendToMaintenance(int n) {
+		if(daysOutOfService != null) {
+			this.isWorking = false;
+		}else {
+			this.isWorking = true;
+			this.daysOnDuty = daysOnDuty + n;
+		}
 	}
 	
 	@Override

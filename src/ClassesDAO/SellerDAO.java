@@ -22,20 +22,20 @@ public class SellerDAO extends JpaUtils {
 	public EntityManagerFactory emf = getEntityManagerFactory();
 	public EntityManager em = emf.createEntityManager();
 
-	public void saveShop(Shop s) throws SQLException {
+	public Shop saveShop(Shop s) throws SQLException {
 		em.getTransaction().begin();
 		em.persist(s);
 		em.getTransaction().commit();
-		em.refresh(s);
 		System.out.println(s);
+		return s;
 	}
 
-	public void saveVending(TicketSeller v1) throws SQLException {
+	public VendingMachine saveVending(VendingMachine v) throws SQLException {
 		em.getTransaction().begin();
-		em.persist(v1);
+		em.persist(v);
 		em.getTransaction().commit();
-		em.refresh(v1);
-		System.out.println(v1);
+		System.out.println(v);
+		return v;
 	}
 
 	public void deleteShop(long id) throws SQLException {
@@ -56,18 +56,19 @@ public class SellerDAO extends JpaUtils {
 
 	public void sellTicket(Ticket ticket, TicketSeller seller) throws SQLException {
 		em.getTransaction().begin();
-		em.persist(ticket);
+		em.merge(ticket);
 		em.merge(seller);
+		em.refresh(seller);
 		em.getTransaction().commit();
-		System.out.println("Ticket sold successfully!");
+		System.out.println("Ticket sold");
 	}
 
 	public void sellPass(Pass pass, Card card) throws SQLException {
 	    em.getTransaction().begin();
 	    if (card.checkValidity()) {
-	        em.persist(pass);
+	        em.merge(pass);
 	        em.getTransaction().commit();
-	        System.out.println("Pass sold successfully!");
+	        System.out.println("Pass sold");
 	        System.out.println("Person ID: " + card.getPerson().getFirstName());
 	    } else {
 	        System.out.println("Failed To Sell The Pass");
@@ -98,8 +99,8 @@ public class SellerDAO extends JpaUtils {
 	public List<Travel> searchByDate(String v, LocalDate start, LocalDate end) {
 		em.getTransaction().begin();
 		TypedQuery<Travel> query = em.createQuery(
-				"SELECT t FROM Travel t WHERE t.seller.name LIKE :vendorName AND t.soldIn BETWEEN :startDate AND :endDate",
-				Travel.class);
+			    "SELECT t FROM Travel t WHERE t.soldIn BETWEEN :startDate AND :endDate AND t.seller.name = :vendorName",
+			    Travel.class);
 		query.setParameter("vendorName", v);
 		query.setParameter("startDate", start);
 		query.setParameter("endDate", end);

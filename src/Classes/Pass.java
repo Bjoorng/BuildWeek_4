@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 
-import Abstract.TicketSeller;
 import Abstract.Travel;
 import Enums.Validity;
 
@@ -22,8 +21,8 @@ public class Pass extends Travel{
 		super();
 	}
 
-	public Pass(LocalDate soldIn, TicketSeller seller, Validity validity, Card card) {
-		super(soldIn, seller);
+	public Pass(LocalDate soldIn, Validity validity, Card card) {
+		super(soldIn);
 		this.validity = validity;
 		this.card = card;
 	}

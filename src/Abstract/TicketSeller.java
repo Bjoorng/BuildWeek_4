@@ -1,6 +1,8 @@
 package Abstract;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import javax.persistence.DiscriminatorType;
@@ -24,6 +27,8 @@ public class TicketSeller {
 	private Long id;
 	@Column(name = "seller_name")
 	private String name;
+	@OneToMany(mappedBy = "seller")
+	private List<Travel> travels;
 	
 	public TicketSeller() {
 		super();
