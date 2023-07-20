@@ -28,6 +28,7 @@ public class Vehicle {
 	private Maintenance daysOutOfService;
 	@OneToOne
 	private Route route;
+	private int completedRoutes;
 		
 	public Vehicle() {
 		super();
@@ -38,6 +39,7 @@ public class Vehicle {
 		this.isWorking = true;
 		this.tov = tov;
 		this.capacity = capacity;
+		this.completedRoutes = 0;
 	}
 	
 	public Long getId() {
@@ -95,6 +97,14 @@ public class Vehicle {
 	public void setRoute(Route route) {
 		this.route = route;
 	}
+	
+	public int getCompletedRoutes() {
+		return completedRoutes;
+	}
+
+	public void setCompletedRoutes(int completedRoutes) {
+		this.completedRoutes = completedRoutes;
+	}
 
 	public void sendToMaintenance(int n) {
 		if(daysOutOfService != null) {
@@ -104,7 +114,7 @@ public class Vehicle {
 			this.daysOnDuty = daysOnDuty + n;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Vehicle [id=" + id + ", isWorking=" + isWorking + ", capacity=" + capacity + ", daysOnDuty="

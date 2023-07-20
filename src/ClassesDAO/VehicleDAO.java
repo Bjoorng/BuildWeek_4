@@ -75,7 +75,14 @@ public class VehicleDAO extends JpaUtils {
 		v.setRoute(r);
 		em.merge(v);
 		em.getTransaction().commit();
-		System.out.println("bus" + v + "route" + r);
+		System.out.println(v + "route" + r);
 	}
 
+	public void completeRoute(Vehicle v) {
+		em.getTransaction().begin();
+		v.setCompletedRoutes(v.getCompletedRoutes() + 1);
+		em.merge(v);
+		em.getTransaction().commit();
+		System.out.println("this vehicle has completed" + " " + v.getCompletedRoutes() + " " + "routes");
+	}
 }

@@ -2,6 +2,7 @@ package Classes;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,7 @@ public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToOne(mappedBy = "cardNum")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Person person;
 	private LocalDate emissionDate;
 	private LocalDate expirationDate;
@@ -24,10 +25,10 @@ public class Card {
 		super();
 	}
 
-	public Card(LocalDate emissionDate, LocalDate expirationDate) {
+	public Card(LocalDate emissionDate) {
 		super();
 		this.emissionDate = emissionDate;
-		this.expirationDate = expirationDate;
+		this.expirationDate = emissionDate.plusYears(1);
 		this.isValid = true;
 	}
 
@@ -73,7 +74,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [id=" + getId() + ", first name=" + person.getFirstName() + " , last name=" + person.getLastName() + "]";
+		return "Card [id=" + getId() + "]";
 	}
 	
 	public boolean checkValidity() {

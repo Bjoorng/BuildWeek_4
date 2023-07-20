@@ -14,7 +14,7 @@ public class CardDAO extends JpaUtils{
 		public EntityManagerFactory emf = getEntityManagerFactory();
 		public EntityManager em = emf.createEntityManager();
 
-		public void saveCard(Card c) throws SQLException {
+		public Card saveCard(Card c) throws SQLException {
 			em.getTransaction().begin();
 		    Person person = c.getPerson();
 		    if (person != null) {
@@ -30,6 +30,7 @@ public class CardDAO extends JpaUtils{
 		    em.getTransaction().commit();
 		    em.refresh(c);
 		    System.out.println(c);
+			return c;
 		}
 		
 		public void deleteCard(long id) throws SQLException {

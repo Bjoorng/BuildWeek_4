@@ -13,12 +13,12 @@ public class PersonDAO extends JpaUtils{
 	public EntityManagerFactory emf = getEntityManagerFactory();
 	public EntityManager em = emf.createEntityManager();
 
-	public void savePerson(Person p) throws SQLException {
+	public Person savePerson(Person p) throws SQLException {
 	    em.getTransaction().begin();
-	    Person managedPerson = em.merge(p);
+	    em.merge(p);
 	    em.getTransaction().commit();
-	    em.refresh(managedPerson);
-	    System.out.println(managedPerson);
+	    System.out.println(p);
+		return p;
 	}
 	
 	public Person getById(long id) throws SQLException {

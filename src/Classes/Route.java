@@ -13,12 +13,12 @@ public class Route {
 	private Long id;
 	private String startingPoint;
 	private String endingPoint;
-	private double avgTime;
+	long avgTime;
 	
 	public Route() {
 		super();
 	}
-	public Route(String startingPoint, String endingPoint, double avgTime) {
+	public Route(String startingPoint, String endingPoint, long avgTime) {
 		super();
 		this.startingPoint = startingPoint;
 		this.endingPoint = endingPoint;
@@ -53,7 +53,7 @@ public class Route {
 		return avgTime;
 	}
 	
-	public void setAvgTime(double avgTime) {
+	public void setAvgTime(long avgTime) {
 		this.avgTime = avgTime;
 	}
 	
