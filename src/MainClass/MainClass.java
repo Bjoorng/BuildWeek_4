@@ -89,9 +89,16 @@ public class MainClass {
 		Pass pass3 = tDao.savePass(pas3);
 		Pass pass4 = tDao.savePass(pas4);
 		
-		sDao.searchByDate(vending.getName(), LocalDate.of(2023, 5, 30), LocalDate.of(2023, 5, 31));
 		sDao.sellTicket(ticket, vending);
-		sDao.sellPass(pass, c1);
+		sDao.sellTicket(ticket2, vending);
+		sDao.sellTicket(ticket3, vending);
+		sDao.sellTicket(ticket4, vending);
+		sDao.sellPass(pass, card, shop);
+		sDao.sellPass(pass2, card2, shop);
+		sDao.sellPass(pass3, card3, shop2);
+		sDao.sellPass(pass4, card4, shop2);
+		sDao.searchByDate(vending.getName(), LocalDate.of(2023, 5, 30), LocalDate.of(2023, 5, 31));
+
 		
 		Vehicle vehicle = veDao.saveVehicle(ve1);
 		Vehicle vehicle2 = veDao.saveVehicle(ve2);

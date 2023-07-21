@@ -56,6 +56,7 @@ public class SellerDAO extends JpaUtils {
 
 	public void sellTicket(Ticket ticket, TicketSeller seller) throws SQLException {
 		em.getTransaction().begin();
+		ticket.setSeller(seller);
 		em.merge(ticket);
 		em.merge(seller);
 		em.refresh(seller);
@@ -63,14 +64,18 @@ public class SellerDAO extends JpaUtils {
 		System.out.println("Ticket sold");
 	}
 
-	public void sellPass(Pass pass, Card card) throws SQLException {
+	public void sellPass(Pass pass, Card card, TicketSeller seller) throws SQLException {
+		System.out.println(card);
+		System.out.println(card.checkValidity());
 	    em.getTransaction().begin();
 	    if (card.checkValidity()) {
+	    	pass.setSeller(seller);
 	        em.merge(pass);
 	        em.getTransaction().commit();
 	        System.out.println("Pass sold");
 	        System.out.println("Person ID: " + card.getPerson().getFirstName());
 	    } else {
+	    	em.getTransaction().rollback();
 	        System.out.println("Failed To Sell The Pass");
 	    }
 	}

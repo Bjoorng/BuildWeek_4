@@ -23,7 +23,6 @@ public class Travel {
 	private Long id;
 	private LocalDate soldIn;
 	@ManyToOne
-	@JoinColumn(name = "seller_id")
 	private TicketSeller seller;
 	
 	public Travel() {

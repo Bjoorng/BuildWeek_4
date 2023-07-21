@@ -1,9 +1,13 @@
 package Classes;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Route {
@@ -14,6 +18,8 @@ public class Route {
 	private String startingPoint;
 	private String endingPoint;
 	long avgTime;
+	@OneToMany
+	private List<Vehicle> vehicles;
 	
 	public Route() {
 		super();

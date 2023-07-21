@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import Enums.Maintenance;
 import Enums.TypeOfVehicle;
@@ -26,7 +26,7 @@ public class Vehicle {
 	private TypeOfVehicle tov;
 	private int daysOnDuty;
 	private Maintenance daysOutOfService;
-	@OneToOne
+	@ManyToOne
 	private Route route;
 	private int completedRoutes;
 		

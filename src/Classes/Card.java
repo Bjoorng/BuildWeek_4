@@ -80,7 +80,7 @@ public class Card {
 	public boolean checkValidity() {
 		if(LocalDate.now().isAfter(emissionDate) && LocalDate.now().isBefore(expirationDate)) {
 			isValid = true;
-		}else {
+		}else{
 			isValid = false;
 		}
 		return isValid;
